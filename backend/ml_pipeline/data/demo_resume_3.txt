@@ -1,0 +1,8 @@
+John cand-0007-003. Summary: Results-driven Platform Engineer engineer.
+- aws: 6 years
+- django: 4 years
+- docker: 6 years
+- github actions: 7 years
+- mysql: 4 years
+- spring: 6 years
+Implemented observability for spring workloads and cut incidents by 57%.

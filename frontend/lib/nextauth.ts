@@ -1,0 +1,1 @@
+// This file is no longer used for NextAuth config. See auth.ts in the project root for the official v5+ setup.

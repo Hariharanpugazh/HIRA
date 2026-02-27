@@ -1,0 +1,8 @@
+Maya cand-0007-002. Summary: Results-driven Platform Engineer engineer.
+- django: 8 years
+- mysql: 7 years
+- python: 4 years
+- redis: 8 years
+- spring: 4 years
+Implemented observability for spring workloads and cut incidents by 45%.
+Led migration to spring and improved deployment frequency by 24%.

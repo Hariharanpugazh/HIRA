@@ -1,0 +1,10 @@
+Dina cand-0007-001. Summary: Results-driven Platform Engineer engineer.
+- django: 6 years
+- javascript: 7 years
+- mysql: 3 years
+- node.js: 8 years
+- postgresql: 7 years
+- redis: 6 years
+- spring: 6 years
+- typescript: 3 years
+Implemented observability for mysql workloads and cut incidents by 49%.

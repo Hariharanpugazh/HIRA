@@ -1,0 +1,87 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: recruiter_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: recruiter_brain
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d recruiter_brain"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+    mem_limit: 1g
+
+  valkey:
+    image: valkey/valkey:8.1-alpine
+    container_name: recruiter_valkey
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - valkey_data:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+    mem_limit: 256m
+
+  llm:
+    image: ghcr.io/ggerganov/llama.cpp:server
+    container_name: recruiter_llm
+    restart: unless-stopped
+    command:
+      - "-m"
+      - "/models/${MODEL_FILE}"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8080"
+      - "-c"
+      - "${LLM_CTX_SIZE:-3072}"
+      - "-t"
+      - "${LLM_THREADS:-8}"
+      - "-b"
+      - "${LLM_BATCH:-512}"
+      - "-ngl"
+      - "${LLM_GPU_LAYERS:-0}"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/models
+    mem_limit: 6g
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: recruiter_api
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      llm:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8000/api/v1/ready || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+    mem_limit: 1g
+
+volumes:
+  postgres_data:
+  valkey_data:

@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "num_jobs": 120,
+  "candidates_per_job": 8,
+  "counts": {
+    "train": 672,
+    "val": 144,
+    "test": 144
+  },
+  "skills_vocabulary_size": 30
+}

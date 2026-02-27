@@ -1,0 +1,53 @@
+{
+  "job_description": "We are hiring a Platform Engineer. Required skills: redis, spring, mysql, django. Candidates should have at least 4+ years of relevant experience, strong delivery ownership, and measurable project impact.",
+  "results": [
+    {
+      "candidate": "demo_resume_2",
+      "fit_score": 8.9564,
+      "skills": [
+        "go",
+        "mysql",
+        "python",
+        "redis",
+        "spring"
+      ],
+      "overclaim_flags": [
+        "Possible over-claim: 8 years in '- mysql' without strong skill taxonomy match.",
+        "Possible over-claim: 8 years in '- spring' without strong skill taxonomy match."
+      ],
+      "rank": 1
+    },
+    {
+      "candidate": "demo_resume_3",
+      "fit_score": 8.9556,
+      "skills": [
+        "aws",
+        "docker",
+        "github actions",
+        "go",
+        "mysql",
+        "spring"
+      ],
+      "overclaim_flags": [],
+      "rank": 2
+    },
+    {
+      "candidate": "demo_resume_1",
+      "fit_score": 8.9535,
+      "skills": [
+        "go",
+        "javascript",
+        "mysql",
+        "node.js",
+        "postgresql",
+        "redis",
+        "spring",
+        "typescript"
+      ],
+      "overclaim_flags": [
+        "Possible over-claim: 8 years in '- postgresql' without strong skill taxonomy match."
+      ],
+      "rank": 3
+    }
+  ]
+}

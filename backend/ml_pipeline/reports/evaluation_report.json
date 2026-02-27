@@ -1,0 +1,31 @@
+{
+  "dataset_size": 144,
+  "models": {
+    "fine_tuned": {
+      "mae": 0.776787,
+      "ranking_spearman_mean": 0.745193,
+      "ranking_ndcg_at_10_mean": 0.988721
+    },
+    "embedding_baseline": {
+      "mae": 1.641831,
+      "ranking_spearman_mean": 0.228395,
+      "ranking_ndcg_at_10_mean": 0.94837
+    },
+    "zero_shot_llm": {
+      "mae": 8.041945,
+      "ranking_spearman_mean": 0.0,
+      "ranking_ndcg_at_10_mean": 0.936879
+    }
+  },
+  "skill_extraction": {
+    "skill_precision": 0.932548,
+    "skill_recall": 0.902591,
+    "skill_f1": 0.917325,
+    "skill_exact_match_accuracy": 0.5
+  },
+  "metadata": {
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "zero_shot_model": "google/flan-t5-small",
+    "zero_shot_fallback_used": false
+  }
+}

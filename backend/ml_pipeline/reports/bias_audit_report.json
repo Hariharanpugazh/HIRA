@@ -1,0 +1,12 @@
+{
+  "num_samples": 144,
+  "mean_abs_counterfactual_delta": 0.002054,
+  "max_abs_counterfactual_delta": 0.0493,
+  "alert_delta": 0.5,
+  "flagged_count": 0,
+  "flagged_ratio": 0.0,
+  "selection_threshold": 7.0,
+  "male_selection_rate": 0.833333,
+  "female_selection_rate": 0.820513,
+  "demographic_parity_difference": 0.012821
+}
