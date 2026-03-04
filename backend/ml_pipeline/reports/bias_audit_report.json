@@ -1,6 +1,6 @@
 {
   "num_samples": 144,
-  "mean_abs_counterfactual_delta": 0.002054,
+  "mean_abs_counterfactual_delta": 0.002049,
   "max_abs_counterfactual_delta": 0.0493,
   "alert_delta": 0.5,
   "flagged_count": 0,

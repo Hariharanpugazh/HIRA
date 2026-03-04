@@ -216,6 +216,27 @@ class ScreeningWorkflow:
             result, candidate = pair
             return self._to_screening_response(result, candidate)
 
+    async def delete_job(self, job_id: str) -> None:
+        async with AsyncSessionLocal() as session:
+            job = await session.get(Job, job_id)
+            if not job:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found.")
+            # Delete screening results
+            screening_rows = await session.exec(
+                select(ScreeningResult).where(ScreeningResult.job_id == job_id)
+            )
+            for sr in screening_rows.all():
+                await session.delete(sr)
+            # Delete candidates
+            candidate_rows = await session.exec(
+                select(Candidate).where(Candidate.job_id == job_id)
+            )
+            for c in candidate_rows.all():
+                await session.delete(c)
+            # Delete the job itself
+            await session.delete(job)
+            await session.commit()
+
     async def _refresh_ranks(self, session, job_id: str) -> None:
         rows = await session.exec(
             select(ScreeningResult)

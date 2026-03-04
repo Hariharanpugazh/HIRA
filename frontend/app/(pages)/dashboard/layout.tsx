@@ -1,5 +1,6 @@
 import { DashboardProvider } from "@/components/dashboard/DashboardProvider";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 
 export default function DashboardLayout({
   children
@@ -7,10 +8,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <DashboardProvider>
-      <DashboardShell>
-        {children}
-      </DashboardShell>
-    </DashboardProvider>
+    <SessionProviderWrapper>
+      <DashboardProvider>
+        <DashboardShell>
+          {children}
+        </DashboardShell>
+      </DashboardProvider>
+    </SessionProviderWrapper>
   );
 }

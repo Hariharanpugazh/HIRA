@@ -2,7 +2,9 @@
 
 import { FormEvent, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ForgotPasswordForm() {
   const router = useRouter();

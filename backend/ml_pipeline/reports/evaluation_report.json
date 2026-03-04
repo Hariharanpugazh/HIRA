@@ -2,12 +2,12 @@
   "dataset_size": 144,
   "models": {
     "fine_tuned": {
-      "mae": 0.776787,
+      "mae": 0.776775,
       "ranking_spearman_mean": 0.745193,
       "ranking_ndcg_at_10_mean": 0.988721
     },
     "embedding_baseline": {
-      "mae": 1.641831,
+      "mae": 1.641828,
       "ranking_spearman_mean": 0.228395,
       "ranking_ndcg_at_10_mean": 0.94837
     },

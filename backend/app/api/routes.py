@@ -99,6 +99,16 @@ async def update_job_status(
     return await workflow.update_job_status(job_id, payload.status)
 
 
+@router.delete("/jobs/{job_id}")
+async def delete_job(
+    job_id: str,
+    workflow: Annotated[ScreeningWorkflow, Depends(get_workflow)],
+    _: Annotated[None, Depends(require_api_key)],
+) -> dict[str, str]:
+    await workflow.delete_job(job_id)
+    return {"status": "deleted"}
+
+
 @router.post("/jobs/{job_id}/screen/text", response_model=BatchScreenResponse)
 async def screen_from_text(
     job_id: str,

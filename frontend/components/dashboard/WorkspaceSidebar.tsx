@@ -2,14 +2,17 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   BookOpenText,
+  Briefcase,
   Upload,
   FlaskConical,
   FolderOpen,
   Hash,
   LayoutGrid,
   Library,
+  Moon,
   NotebookPen,
   PanelLeftClose,
   PanelLeftOpen,
@@ -17,6 +20,7 @@ import {
   Pin,
   Plus,
   Search,
+  Sun,
   Trash2,
   X
 } from "lucide-react";
@@ -25,6 +29,7 @@ import { useDashboard } from "./DashboardProvider";
 const navItems = [
   { key: "resume-analyzer", label: "Resume Analyzer", icon: BookOpenText, href: "/dashboard/resume-analyzer" },
   { key: "bulk-upload", label: "Bulk Upload", icon: Upload, href: "/dashboard/bulk-upload" },
+  { key: "jobs", label: "Jobs History", icon: Briefcase, href: "/dashboard/jobs" },
 ] as const;
 
 function isNavActive(pathname: string, href: string) {
@@ -35,13 +40,26 @@ export function WorkspaceSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { state, ui, derived, actions } = useDashboard();
+  const { data: session } = useSession();
+
+  const isDark = state.settings.interface.theme === "dark" ||
+    (state.settings.interface.theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  const toggleTheme = () => {
+    const next = isDark ? "light" : "dark";
+    actions.updateSettingsSection("interface", { theme: next });
+  };
 
   const closeMobileAndNavigate = (href: string) => {
     router.push(href);
     actions.closeMobileSidebar();
   };
 
-  const initials = state.profile.name
+  // Use the actual logged-in user's name if available
+  const displayName = session?.user?.name || state.profile.name;
+  const displayEmail = session?.user?.email || state.profile.email;
+
+  const initials = displayName
     .split(" ")
     .map((part) => part[0])
     .join("")
@@ -72,6 +90,15 @@ export function WorkspaceSidebar() {
           </div>
 
           <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--cn-muted)] transition hover:bg-[var(--cn-hover)] hover:text-[var(--cn-text)]"
+              aria-label="Toggle theme"
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             <button
               type="button"
               onClick={actions.toggleSidebarCollapsed}
@@ -117,7 +144,7 @@ export function WorkspaceSidebar() {
             onClick={actions.openProfile}
             className={`group flex w-full items-center rounded-2xl p-2 transition-all duration-200 hover:bg-[var(--cn-hover)] ${ui.sidebarCollapsed ? "justify-center" : "gap-3"
               }`}
-            title={state.profile.name}
+            title={displayName}
           >
             <div className="flex-shrink-0">
               <div
@@ -129,7 +156,8 @@ export function WorkspaceSidebar() {
             </div>
             {!ui.sidebarCollapsed ? (
               <div className="min-w-0 text-left">
-                <div className="truncate text-[14px] font-semibold tracking-tight text-[var(--cn-text)]">{state.profile.name}</div>
+                <div className="truncate text-[14px] font-semibold tracking-tight text-[var(--cn-text)]">{displayName}</div>
+                {displayEmail && <div className="truncate text-[11px] text-[var(--cn-muted)]">{displayEmail}</div>}
               </div>
             ) : null}
           </button>
